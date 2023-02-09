@@ -1,15 +1,6 @@
 import { async } from "regenerator-runtime";
 import Video from "../models/Video.js";
 
-// console.log("start");
-// Video.find({}, (error, videos) => {
-//     if (error) {
-//         return res.render("server-error");
-//     }
-//     return res.render("home", { pageTitle: "Home", videos });
-// });
-// console.log("finished");
-
 export const home = async (req, res) => {
     console.log("i start");
     const videos = await Video.find({});
@@ -45,7 +36,7 @@ export const postEdit = async (req, res) => {
     await Video.findByIdAndUpdate(id, {
         title,
         description,
-        hashtags: hashtags.split(",").map((word) => (word.startsWith("#") ? word : `#${word}`)),
+        hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect(`/videos/${id}`);
 };
@@ -62,7 +53,7 @@ export const postUpload = async (req, res) => {
         await Video.create({
             title,
             description,
-            hashtags,
+            hashtags: Video.formatHashtags(hashtags),
         });
         return res.redirect("/");
     } catch (error) {
@@ -71,4 +62,24 @@ export const postUpload = async (req, res) => {
             errorMessage: error._message,
         });
     }
+};
+
+export const deleteVideo = async (req, res) => {
+    const { id } = req.params;
+    await Video.findByIdAndDelete(id);
+    return res.redirect("/");
+};
+
+export const search = async (req, res) => {
+    const { keyword } = req.query;
+    let videos = [];
+    if (keyword) {
+        // search
+        videos = await Video.find({
+            title: {
+                $regex: new RegExp(`${keyword}$`, "i"),
+            },
+        });
+    }
+    return res.render("search", { pageTitle: "Search", videos });
 };
