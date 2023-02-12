@@ -1,10 +1,7 @@
-import { async } from "regenerator-runtime";
 import Video from "../models/Video.js";
 
 export const home = async (req, res) => {
-    console.log("i start");
     const videos = await Video.find({});
-    console.log("i finish");
     return res.render("home", { pageTitle: "Home", videos });
 };
 
@@ -55,7 +52,7 @@ export const postUpload = async (req, res) => {
             description,
             hashtags: Video.formatHashtags(hashtags),
         });
-        return res.redirect("/");
+        return res.status(400).redirect("/");
     } catch (error) {
         return res.render("upload", {
             pageTitle: "Upload Video",
