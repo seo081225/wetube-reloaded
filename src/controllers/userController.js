@@ -69,7 +69,6 @@ export const startGithubLogin = (req, res) => {
     };
     const params = new URLSearchParams(config).toString();
     const finalUrl = `${baseUrl}?${params}`;
-    //onsole.log(res);
     return res.redirect(finalUrl);
 };
 
@@ -90,9 +89,11 @@ export const finishGithubLogin = async (req, res) => {
             },
         })
     ).json();
+    console.log(tokenRequest);
     if ("access_token" in tokenRequest) {
         const { access_token } = tokenRequest;
         const apiUrl = "https://api.github.com";
+        //        fetch(x).then(response = response.json()).then(json => aaa);
         const userData = await (
             await fetch(`${apiUrl}/user`, {
                 headers: {
@@ -108,6 +109,7 @@ export const finishGithubLogin = async (req, res) => {
                 },
             })
         ).json();
+        console.log(emailData);
         const email = emailData.find((email) => email.primary === true && email.verified === true);
         if (!email) {
             return res.redirect("/login");
