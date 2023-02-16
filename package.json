@@ -13,7 +13,7 @@
     },
     "scripts": {
         "dev": "nodemon --exec babel-node ./src/init.js",
-        "assets": "webpack --config webpack.config.cjs",
+        "assets": "rimraf assets && webpack --config webpack.config.cjs",
         "start": "node build/init.js",
         "build": "npm run build:server && npm run build:assets",
         "build:server": "babel src -d build",
