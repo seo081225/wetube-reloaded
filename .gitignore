@@ -1,6 +1,7 @@
 /node_modules
 .env
 /uploads
-.DS_Store
 /assets
 /build
+assets/css/styles.css
+assets/js/main.js
