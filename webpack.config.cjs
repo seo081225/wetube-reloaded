@@ -10,7 +10,11 @@ module.exports = {
         recorder: BASE_JS + "recorder.js",
         commentSection: BASE_JS + "commentSection.js",
     },
-    mode: "development",
+    watchOptions: {
+        ignored: /node_modules/,
+        aggregateTimeout: 5000,
+        poll: 1000,
+    },
     plugins: [
         new MiniCssExtractPlugin({
             filename: "css/styles.css",
@@ -36,11 +40,5 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
         ],
-    },
-    watch: true,
-    watchOptions: {
-        ignored: /node_modules/,
-        aggregateTimeout: 5000,
-        poll: 1000,
     },
 };
