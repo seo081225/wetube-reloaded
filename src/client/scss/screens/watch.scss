@@ -4,7 +4,10 @@
     flex-direction: column;
     .video__title {
         font-size: 26px;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
+    }
+    .video__description {
+        margin-bottom: 10px;
     }
     .video__createdAt {
         font-size: 12px;
