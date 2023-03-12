@@ -1,7 +1,7 @@
 extends base.pug
+include mixins/video
 
 block content
-include mixins/video
     form(method="GET").search__form
         input(placeholder="Search by title", name="keyword", type="text")
         input(type="submit", value="Search now")
