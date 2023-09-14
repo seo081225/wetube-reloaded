@@ -17,3 +17,5 @@
 
 /videos/coments -> Comment on a video
 /videos/comments/delete -> Delete A Comment of a Video
+
+유튜브 클론 졸업과제
